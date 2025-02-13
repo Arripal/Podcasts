@@ -4,7 +4,7 @@ namespace App\Controller\Account\Podcasts;
 
 use App\Entity\Podcast;
 use App\Form\CreatePodcastFormType;
-use App\Services\Files\AudioFileUploaderService;
+use App\Services\Files\AudioFileService;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,7 +16,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 final class CreatePodcastController extends AbstractController
 {
 
-    public function __construct(private SluggerInterface $sluggerInterface, private AudioFileUploaderService $fileService) {}
+    public function __construct(private SluggerInterface $sluggerInterface, private AudioFileService $fileService) {}
 
     #[Route('/app/account/podcasts/create', name: 'app_account_podcasts_create')]
     public function index(

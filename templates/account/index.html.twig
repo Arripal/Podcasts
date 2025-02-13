@@ -10,11 +10,13 @@
 
 <div class="example-wrapper">
     <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/Alban/Desktop/podcastsManager/src/Controller/Account/AccountController.php</code></li>
-        <li>Your template at <code>C:/Users/Alban/Desktop/podcastsManager/templates/account/account/index.html.twig</code></li>
-    </ul>
+{% for type, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ type }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+    
 </div>
 {% endblock %}

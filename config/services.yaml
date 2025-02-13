@@ -19,8 +19,11 @@ services:
       - '../src/DependencyInjection/'
       - '../src/Entity/'
       - '../src/Kernel.php'
-  App\Services\Files\AudioFileUploaderService:
+  App\Services\Files\AudioFileService:
     arguments:
       $targetDirectory: '%audiofile_upload_directory%'
   # add more service definitions when explicit configuration is needed
+  App\EventListeners\Podcasts\PodcastOwnerListener:
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller }
   # please note that last definitions always *replace* previous ones

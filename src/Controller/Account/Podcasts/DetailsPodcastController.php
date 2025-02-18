@@ -10,7 +10,6 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class DetailsPodcastController extends AbstractController
 {
-
     public function __construct(private RouterService $routerService, private PodcastsService $podcastsService) {}
 
     #[Route('/app/account/podcasts/details/{identifier}', name: 'app_account_podcasts_details')]

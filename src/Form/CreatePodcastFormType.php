@@ -27,10 +27,10 @@ class CreatePodcastFormType extends AbstractType
                 'constraints' => [
                     new File([
                         'mimeTypes' => [
-                            'audio/mpeg', //MP3
-                            'audio/mp3', //MP4
-                            'audio/wav', //WAV
-                            'audio/ogg', //OGG
+                            'audio/mpeg',
+                            'audio/mp3',
+                            'audio/wav',
+                            'audio/ogg',
                         ],
                         'mimeTypesMessage' => 'Choississez un fichier audio valide'
                     ])

@@ -26,4 +26,10 @@ services:
   App\EventListeners\Podcasts\PodcastOwnerListener:
     tags:
       - { name: kernel.event_listener, event: kernel.controller }
+  App\EventListeners\User\UsernameEventListener:
+    tags:
+      - { name: kernel.event_subscriber }
+  App\EventListeners\User\PasswordEventListener:
+    tags:
+      - { name: kernel.event_subscriber }
   # please note that last definitions always *replace* previous ones

@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Account/User/DetailsUserController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .success {color :rgb(22, 212, 67);}
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ current_user.username }}! ✅</h1>
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}    
+</div>
+{% endblock %}

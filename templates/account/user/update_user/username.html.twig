@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Account/User/UpdateUserController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .error-wrapper { color:rgb(238, 31, 31); }
+</style>
+
+<div class="example-wrapper">
+ 
+    <h1>Modifier votre pseudonyme</h1>
+
+   {{ form_start(form) }} 
+    {{ form_label(form.username) }}
+    {{ form_widget(form.username) }}
+    {{ form_errors(form.username) }}
+    {{ form_errors(form) }} 
+    <button type="submit">Mettre à jour</button>
+   {{ form_end(form) }}
+
+    <a href="{{ path('app_account_self_user_details') }}">Retour</a>
+</div>
+{% endblock %}

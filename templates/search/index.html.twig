@@ -9,13 +9,9 @@
 </style>
 
 <div class="example-wrapper">
-   {{ form_start(form, {'method': 'GET'}) }}
-    {{ form_row(form.query) }}
-    <button type='submit'> Rechercher</button>
-   {{ form_end(form) }}
-{% if form.vars.submitted and results is defined %}
 
-    <h2>Résultats de recherche</h2>
+
+      <h1>Résultats pour "{{ searchValue }}"</h1>
     
     <h3>Utilisateurs</h3>
     {% if results.users|length > 0 %}
@@ -40,17 +36,5 @@
     {% else %}
         <p>Aucun podcast trouvé</p>
     {% endif %}
-    
-    <h3>Catégories</h3>
-    {% if results.categories|length > 0 %}
-        <ul>
-        {% for category in results.categories %}
-            <li>{{ category.name }}</li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>Aucune catégorie trouvée</p>
-    {% endif %}
-{% endif %}
 </div>
 {% endblock %}

@@ -11,6 +11,19 @@
         {% endblock %}
     </head>
     <body>
+        {% if app.request.get('_route') != 'app_login' %}
+        <header>
+            <form action="{{ path('app_search') }}" method="get" style="display: inline;">
+                <input type="text" name="query" placeholder="Rechercher..." required>
+                <button type="submit">🔍</button>
+            </form>
+            <nav>
+                <a href="{{path('app_home')}}">Accueil</a>
+                <a href="{{path('app_account_self_user_details')}}">Mon espace</a>
+                <a href="{{path('app_logout')}}">Se déconnecter</a>
+            </nav>
+        </header>
+{% endif %}
         {% block body %}{% endblock %}
     </body>
 </html>

@@ -24,7 +24,6 @@ final class SearchController extends AbstractController
         $results = [
             'users' => [],
             'podcasts' => [],
-            'categories' => []
         ];
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -58,8 +57,7 @@ final class SearchController extends AbstractController
 
                 $results = [
                     'users' => $users,
-                    'podcasts' => $podcasts,
-                    'categories' => $categories
+                    'podcasts' => $podcasts
                 ];
             }
         }

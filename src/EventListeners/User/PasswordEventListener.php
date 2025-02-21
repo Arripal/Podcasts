@@ -3,6 +3,7 @@
 namespace App\EventListeners\User;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
 use Symfony\Component\Form\Event\SubmitEvent;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormEvents;
@@ -22,10 +23,6 @@ class PasswordEventListener implements EventSubscriberInterface
         $form = $event->getForm();
         $plainPassword = $form->get('password')->getData();
         $confirmPassword = $form->get('confirm_password')->getData();
-
-        if (!$plainPassword or $confirmPassword) {
-            return;
-        }
 
         if ($plainPassword !== $confirmPassword) {
             $form->get('confirm_password')->addError(new FormError('Les mots de passe ne correspondent pas.'));

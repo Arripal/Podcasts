@@ -200,6 +200,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function countSubscriptions()
+    {
+        return $this->subscriptions->count();
+    }
+
     /**
      *    Subscribers
      */
@@ -209,12 +214,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->subscribers;
     }
 
-    public function addSubscriber(self $subscriber): self
+    public function addSubscriber(self $subscriber)
     {
         if (!$this->subscribers->contains($subscriber)) {
             $this->subscribers->add($subscriber);
         }
-        return $this;
     }
 
     public function removeSubscriber(self $subscriber): self
@@ -223,5 +227,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->subscribers->removeElement($subscriber);
         }
         return $this;
+    }
+
+    public function countSubscribers()
+    {
+        return $this->subscribers->count();
     }
 }

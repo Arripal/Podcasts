@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil - {{user.username}}{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>{{ user.username }}! ✅</h1>
+<div>
+    <span>Nombre d'abonné(s) : {{user.countSubscribers()}}</span>
+    </br>
+    <span>Nombre d'abonnement(s) : {{user.countSubscriptions()}}</span>
+</div>
+<h2>Les podcasts de {{user.username}} :</h2>
+    {% if user.podcasts|length > 0 %}
+    <ul>
+       {% for podcast in user.podcasts %}
+       <li>{{podcast.name}}</li> 
+    {% endfor %} 
+    </ul>
+    {% else %}
+    <h3>{{user.username}} n'a pas publié de podcast </h3>
+    {% endif %}
+</div>
+{% endblock %}

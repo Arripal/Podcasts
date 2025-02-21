@@ -35,8 +35,8 @@ class PodcastsService
 
     public function removePodcast($podcastId)
     {
-        $entityRepo = $this->entityManagerInterface->getRepository(Podcast::class);
-        $existingPodcast = $entityRepo->find($podcastId);
+
+        $existingPodcast = $this->entityManagerInterface->getRepository(Podcast::class)->find($podcastId);
 
         $this->audioFileService->removeAudioFile($existingPodcast);
         $this->entityManagerInterface->remove($existingPodcast);

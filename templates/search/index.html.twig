@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Search/SearchController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+   {{ form_start(form, {'method': 'GET'}) }}
+    {{ form_row(form.query) }}
+    <button type='submit'> Rechercher</button>
+   {{ form_end(form) }}
+{% if form.vars.submitted and results is defined %}
+
+    <h2>Résultats de recherche</h2>
+    
+    <h3>Utilisateurs</h3>
+    {% if results.users|length > 0 %}
+        <ul>
+        {% for user in results.users %}
+            <li> <a href="{{ path('app_account_other_user_details', {'username': user.username|url_encode}) }}">
+        {{ user.username }}
+    </a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun utilisateur trouvé</p>
+    {% endif %}
+    
+    <h3>Podcasts</h3>
+    {% if results.podcasts|length > 0 %}
+        <ul>
+        {% for podcast in results.podcasts %}
+            <li>{{ podcast.name }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucun podcast trouvé</p>
+    {% endif %}
+    
+    <h3>Catégories</h3>
+    {% if results.categories|length > 0 %}
+        <ul>
+        {% for category in results.categories %}
+            <li>{{ category.name }}</li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>Aucune catégorie trouvée</p>
+    {% endif %}
+{% endif %}
+</div>
+{% endblock %}

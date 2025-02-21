@@ -43,11 +43,7 @@ class UpdatePasswordFormType extends AbstractType
                 'label' => 'Confirmez le mot de passe',
                 'mapped' => false,
                 'constraints' => [
-                    new NotBlank(['message' => 'Veuillez confirmer votre mot de passe']),
-                    new EqualTo([
-                        'value' => $builder->getData()?->getPassword() ?? '',
-                        'message' => 'Les mots de passe ne correspondent pas'
-                    ])
+                    new NotBlank(['message' => 'Veuillez confirmer votre mot de passe'])
                 ]
             ]);
 

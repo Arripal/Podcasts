@@ -17,6 +17,36 @@
                 {{ message }}
             </div>
         {% endfor %}
-    {% endfor %}    
+    {% endfor %}
+     <div class="example-wrapper">
+        <h2>Mes abonnements - {{current_user.countSubscriptions()}} utilisateur(s)</h2>
+        {% if current_user.subscriptions|length > 0 %}
+            <ul>
+                {% for sub in current_user.subscriptions %}
+                    <li><span>
+                       <a href="{{path('app_account_other_user_details',{'username':'John Doe'|url_encode})}}">{{ sub.username }}</a>
+                        </span> <button type="button"><a href="{{path('app_account_user_remove_subscription',{'username': 'johndoe'|url_encode})}}">Ne plus suivre</a></button></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Vous n'êtes abonné à personne.</p>
+        {% endif %}
+    </div>
+     <div class="example-wrapper">
+        <h2>Mes abonnés - {{current_user.countSubscribers()}} abonné(s)</h2>
+        {% if current_user.subscribers|length > 0 %}
+            <ul>
+                {% for sub in current_user.subscribers %}
+                    <li>{{ sub.username }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Personne ne vous suit encore.</p>
+        {% endif %}
+    </div>
+    <div class="example-wrapper">
+        <h2>S'abonner :</h2>
+        <a href="{{ path('app_account_user_subscribe', { 'username': 'Al'|url_encode }) }}">S'abonner à John Doe</a>
+    </div>            
 </div>
 {% endblock %}

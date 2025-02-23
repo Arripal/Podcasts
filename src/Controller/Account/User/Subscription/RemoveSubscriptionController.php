@@ -16,7 +16,6 @@ final class RemoveSubscriptionController extends AbstractController
     #[Route('app/account/user/subscription/remove/{username}', name: 'app_account_user_remove_subscription')]
     public function removeSubscription($username): Response
     {
-        dd($username);
         try {
             $decodedUsername = urldecode($username);
             $this->userService->removeSubscription($decodedUsername);

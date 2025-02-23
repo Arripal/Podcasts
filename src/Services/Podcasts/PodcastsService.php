@@ -42,4 +42,15 @@ class PodcastsService
         $this->entityManagerInterface->remove($existingPodcast);
         $this->entityManagerInterface->flush();
     }
+
+    public function searchCorrespondingPodcasts($searchValue): array
+    {
+        return $this->entityManagerInterface->createQueryBuilder()
+            ->select('p')
+            ->from('App\Entity\Podcast', 'p')
+            ->where('LOWER(p.name) LIKE LOWER(:term)')
+            ->setParameter('term', '%' . $searchValue . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }

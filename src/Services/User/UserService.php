@@ -68,4 +68,15 @@ class UserService
         $currentUser->removeSubscription($targetUser);
         $targetUser->removeSubscriber($currentUser);
     }
+
+    public function searchCorrespondingUsers($searchValue)
+    {
+        return $this->entityManagerInterface->createQueryBuilder()
+            ->select('u')
+            ->from('App\Entity\User', 'u')
+            ->where('LOWER(u.username) LIKE LOWER(:term)')
+            ->setParameter('term', '%' . $searchValue . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }

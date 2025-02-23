@@ -29,6 +29,7 @@ final class CreatePodcastController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $file = $form->get('file')->getData();
             $podcast->setName($form->get('name')->getData());
             $podcast->setFile($file);

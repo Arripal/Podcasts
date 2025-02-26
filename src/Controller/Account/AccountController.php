@@ -14,11 +14,9 @@ final class AccountController extends AbstractController
     {
 
         $user = $userService->getAuthenticatedUser();
-        $podcasts = $user->getPodcasts();
 
         return $this->render('account/index.html.twig', [
-            'controller_name' => $user->getUsername(),
-            'podcasts' => $podcasts
+            'user' => $user
         ]);
     }
 }

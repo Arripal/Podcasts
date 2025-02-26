@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello Account/User/DetailsUserController!{% endblock %}
+{% block title %}Mes informations{% endblock %}
 
 {% block body %}
 <style>
@@ -10,7 +10,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ current_user.username }}! ✅</h1>
+    <h1>Mon profil</h1>
     {% for type, messages in app.flashes %}
         {% for message in messages %}
             <div class="alert alert-success">
@@ -24,8 +24,8 @@
             <ul>
                 {% for sub in current_user.subscriptions %}
                     <li><span>
-                       <a href="{{path('app_account_other_user_details',{'username':'John Doe'|url_encode})}}">{{ sub.username }}</a>
-                        </span> <button type="button"><a href="{{path('app_account_user_remove_subscription',{'username': 'johndoe'|url_encode})}}">Ne plus suivre</a></button></li>
+                       <a href="{{path('app_account_other_user_details',{'username': sub.username|url_encode})}}">{{ sub.username }}</a>
+                        </span> <button type="button"><a href="{{path('app_account_user_remove_subscription',{'username': sub.username|url_encode})}}">Ne plus suivre</a></button></li>
                 {% endfor %}
             </ul>
         {% else %}
@@ -44,9 +44,5 @@
             <p>Personne ne vous suit encore.</p>
         {% endif %}
     </div>
-    <div class="example-wrapper">
-        <h2>S'abonner :</h2>
-        <a href="{{ path('app_account_user_subscribe', { 'username': 'Al'|url_encode }) }}">S'abonner à John Doe</a>
-    </div>            
 </div>
 {% endblock %}

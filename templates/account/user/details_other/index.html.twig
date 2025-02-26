@@ -9,7 +9,10 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>{{ user.username }}! ✅</h1>
+    <h1>Profil de {{ user.username }}</h1>
+    <button>
+        <a href="{{path('app_account_user_subscribe',{'username': user.username|url_encode})}}">Suivre {{ user.username }}</a>
+    </button>
 <div>
     <span>Nombre d'abonné(s) : {{user.countSubscribers()}}</span>
     </br>

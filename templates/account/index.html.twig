@@ -9,7 +9,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Bienvenue dans votre espace personnel {{user.username }}</h1>
 {% for type, messages in app.flashes %}
     {% for message in messages %}
         <div class="alert alert-{{ type }}">
@@ -17,6 +17,17 @@
         </div>
     {% endfor %}
 {% endfor %}
-    
+    <section>
+        <h2>🎙 Bienvenue dans votre espace créateur !</h2>
+        <p>Ici, c'est votre terrain de jeu : retrouvez tous vos podcasts, apportez-leur des modifications et suivez leur évolution en un clin d'œil.</p>
+        <a href="{{path('app_account_podcasts')}}">🚀 Accédez à vos podcasts</a>
+    </section>
+    <section>
+        <h2>🔐 Votre espace personnel</h2>
+        <p>Gérez vos informations en toute simplicité ! Consultez et modifiez vos données à tout moment pour une expérience toujours plus personnalisée.</p>
+        <h3>📋 Vos informations</h3>
+        <a href="{{path('app_account_self_user_details')}}">✨ Accédez à votre profil</a>
+    </section>
+
 </div>
 {% endblock %}

@@ -20,7 +20,7 @@
     <ul>
         {% for podcast in user_podcasts %}
         <li>
-            {{podcast.name}} <button><a href="{{path('app_account_podcasts_delete',{'identifier':podcast.id})}}">Supprimer</a></button><button><a href="{{path('app_account_podcasts_update',{'identifier':podcast.id})}}">Modifier</a></button>
+            {{podcast.name}} <button><a href="{{path('app_account_podcasts_delete',{'identifier': podcast.id})}}">Supprimer</a></button><button><a href="{{path('app_account_podcasts_update',{'identifier': podcast.id})}}">Modifier</a></button>
         </li>  
         {% endfor %}
     </ul>

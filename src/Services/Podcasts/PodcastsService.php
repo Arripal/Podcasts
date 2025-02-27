@@ -3,6 +3,7 @@
 namespace App\Services\Podcasts;
 
 use App\Entity\Podcast;
+use App\Entity\User;
 use App\Repository\PodcastRepository;
 use App\Services\Files\AudioFileService;
 use Doctrine\Common\Collections\Collection;
@@ -13,15 +14,9 @@ class PodcastsService
 {
     public function __construct(private PodcastRepository $podcastRepository, private EntityManagerInterface $entityManagerInterface, private AudioFileService $audioFileService) {}
 
-    public function getAll(int $userId)
+    public function getOneBy(array $params): ?Podcast
     {
-
-        return $this->podcastRepository->findBy(['id' => $userId]) ?? null;
-    }
-
-    public function getOneBy($podcastId)
-    {
-        return $this->podcastRepository->findOneBy(['id' => $podcastId]) ?? null;
+        return $this->podcastRepository->findOneBy($params);
     }
 
     public function isUserOwningPodcast($podcastId, Collection $currentUserPodcasts)
@@ -33,10 +28,14 @@ class PodcastsService
         return !empty($result);
     }
 
-    public function removePodcast($podcastId)
+    public function removePodcast(array $params)
     {
 
-        $existingPodcast = $this->entityManagerInterface->getRepository(Podcast::class)->find($podcastId);
+        $existingPodcast = $this->getOneBy($params);
+
+        if (!$existingPodcast) {
+            return null;
+        }
 
         $this->audioFileService->removeAudioFile($existingPodcast);
         $this->entityManagerInterface->remove($existingPodcast);

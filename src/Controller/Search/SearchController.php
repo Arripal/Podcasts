@@ -39,7 +39,6 @@ final class SearchController extends AbstractController
                 'users' => $users,
                 'podcasts' => $podcasts
             ];
-            // dd(is_file('uploads/Audio/Vendredi-sur-Mer-Les-Filles-Desir-67ae0a749badd.mp3'));
         }
 
         return $this->render('search/index.html.twig', [

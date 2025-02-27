@@ -34,6 +34,12 @@ final class CreatePodcastController extends AbstractController
             $podcast->setName($form->get('name')->getData());
             $podcast->setFile($file);
             $podcast->addAuthor($this->getUser());
+
+            $description = $form->get('description')->getData();
+            if ($description) {
+                $podcast->setDescription($description);
+            }
+
             $categories = $form->get('categories')->getData();
             foreach ($categories as $categorie) {
                 $podcast->addCategory($categorie);
@@ -44,6 +50,7 @@ final class CreatePodcastController extends AbstractController
 
             $podcast->setFile($file['filename']);
             $podcast->setDuration($file['duration']);
+
             $entityManagerInterface->persist($podcast);
             $entityManagerInterface->flush();
 

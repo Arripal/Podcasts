@@ -46,7 +46,7 @@ final class UpdatePodcastController extends AbstractController
 
             $this->entityManagerInterface->flush();
             $this->addFlash('success', 'Votre podcast a bien été mis à jour.');
-            return $this->routerService->generateURL('app_home');
+            return $this->routerService->generateURL('app_account_podcasts');
         }
 
         return $this->render('account/podcasts/update_podcast/index.html.twig', [

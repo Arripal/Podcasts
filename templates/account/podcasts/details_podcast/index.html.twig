@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello Account/Podcasts/DetailsPodcastController!{% endblock %}
+{% block title %}{{podcast.name}} - informations{% endblock %}
 
 {% block body %}
 <style>
@@ -19,9 +19,9 @@
     {% endfor %}
 {% endfor %}
   <div>
-    {% if podcast_details %}
+    {% if podcast %}
         <pre>
-            {{ dump(podcast_details) }}
+            {{ dump(podcast) }}
         </pre>
     {% endif %}
   </div>  

@@ -6,6 +6,7 @@ use App\Entity\Category;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Count;
@@ -35,6 +36,9 @@ class CreatePodcastFormType extends AbstractType
                         'mimeTypesMessage' => 'Choississez un fichier audio valide'
                     ])
                 ]
+            ])
+            ->add('description', TextareaType::class, [
+                'label' => 'Description'
             ])
             ->add(
                 'categories',

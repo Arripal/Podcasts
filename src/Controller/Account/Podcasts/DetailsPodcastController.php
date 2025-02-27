@@ -15,15 +15,15 @@ final class DetailsPodcastController extends AbstractController
     #[Route('/app/account/podcasts/details/{identifier}', name: 'app_account_podcasts_details')]
     public function getPodcastDetails($identifier): Response
     {
-        $podcastDetails = $this->podcastsService->getOneBy($identifier);
+        $podcast = $this->podcastsService->getOneBy($identifier);
 
-        if ($podcastDetails == null or count($podcastDetails) == 0) {
+        if ($podcast == null or count($podcast) == 0) {
             $this->addFlash('error', 'Oups. Impossible d\'afficher les informations concernant le podcast. Réessayer ultérieurement.');
             return $this->routerService->generateURL('app_account_podcasts');
         }
 
         return $this->render('account/podcasts/details_podcast/index.html.twig', [
-            'podcast_details' => $podcastDetails,
+            'podcast' => $podcast,
         ]);
     }
 }

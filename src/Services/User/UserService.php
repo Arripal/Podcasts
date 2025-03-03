@@ -18,11 +18,6 @@ class UserService
         return $this->security->getUser();
     }
 
-    public function findUser(array $identifier)
-    {
-        return $this->userRepository->findOneBy($identifier) ?? null;
-    }
-
     public function findUserByUsername(string $username)
     {
         //Ajout de la sensibiliter à la casse
@@ -38,7 +33,7 @@ class UserService
     {
         $currentUser = $this->getAuthenticatedUser();
 
-        $targetUser = $this->findUser(['username' => $username]);
+        $targetUser = $this->userRepository->findOneBy(['username' => $username]);
 
         if (!$targetUser) {
             return null;
@@ -55,7 +50,7 @@ class UserService
     public function removeSubscription(string $username)
     {
         $currentUser = $this->getAuthenticatedUser();
-        $targetUser = $this->findUser(['username' => $username]);
+        $targetUser = $this->userRepository->findOneBy(['username' => $username]);
 
         if (!$targetUser) {
             return null;

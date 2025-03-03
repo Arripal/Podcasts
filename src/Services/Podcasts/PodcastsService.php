@@ -14,11 +14,6 @@ class PodcastsService
 {
     public function __construct(private PodcastRepository $podcastRepository, private EntityManagerInterface $entityManagerInterface, private AudioFileService $audioFileService) {}
 
-    public function getOneBy(array $params): ?Podcast
-    {
-        return $this->podcastRepository->findOneBy($params);
-    }
-
     public function isUserOwningPodcast($podcastId, Collection $currentUserPodcasts)
     {
         $result = array_filter($currentUserPodcasts->toArray(), function ($podcast) use ($podcastId) {
@@ -31,7 +26,7 @@ class PodcastsService
     public function removePodcast(array $params)
     {
 
-        $existingPodcast = $this->getOneBy($params);
+        $existingPodcast = $this->podcastRepository->findOneBy($params);
 
         if (!$existingPodcast) {
             return null;

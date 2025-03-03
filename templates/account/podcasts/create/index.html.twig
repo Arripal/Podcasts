@@ -20,7 +20,8 @@
         </span>
     </div>
     {{ form_row(form.categories) }} 
-    <button type='submit'> Enregistrer le podcast</button>
+    {{form_row(form.description)}}
+    <button type='submit'>Enregistrer le podcast</button>
    {{ form_end(form) }}
 </div>
 {% endblock %}

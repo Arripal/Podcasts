@@ -133,3 +133,10 @@ a {
 	color: black;
 	margin: 0 auto;
 }
+
+/** Audio **/
+
+.audio {
+	height: 50px;
+	width: 500px;
+}

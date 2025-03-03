@@ -11,12 +11,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
 
 final class CreatePodcastController extends AbstractController
 {
 
-    public function __construct(private SluggerInterface $sluggerInterface, private AudioFileService $fileService) {}
+    public function __construct(private AudioFileService $fileService) {}
 
     #[Route('/app/account/podcasts/create', name: 'app_account_podcasts_create')]
     public function index(
@@ -34,6 +33,12 @@ final class CreatePodcastController extends AbstractController
             $podcast->setName($form->get('name')->getData());
             $podcast->setFile($file);
             $podcast->addAuthor($this->getUser());
+
+            $description = $form->get('description')->getData();
+            if ($description) {
+                $podcast->setDescription($description);
+            }
+
             $categories = $form->get('categories')->getData();
             foreach ($categories as $categorie) {
                 $podcast->addCategory($categorie);
@@ -44,6 +49,7 @@ final class CreatePodcastController extends AbstractController
 
             $podcast->setFile($file['filename']);
             $podcast->setDuration($file['duration']);
+
             $entityManagerInterface->persist($podcast);
             $entityManagerInterface->flush();
 

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello Account/Podcasts/DetailsPodcastController!{% endblock %}
+{% block title %}{{podcast.name}} - informations{% endblock %}
 
 {% block body %}
 <style>
@@ -9,7 +9,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Hello✅</h1>
 
  {% for type, messages in app.flashes %}
     {% for message in messages %}
@@ -19,13 +19,14 @@
     {% endfor %}
 {% endfor %}
   <div>
-    {% if podcast_details %}
+    {% if podcast %}
         <pre>
-            {{ dump(podcast_details) }}
+            {{ dump(podcast) }}
         </pre>
     {% endif %}
   </div>  
 </div>
-{% endblock %}
 </div>
 {% endblock %}
+
+

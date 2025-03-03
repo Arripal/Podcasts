@@ -4,14 +4,15 @@ namespace App\EventListeners\Podcasts;
 
 use App\Services\Podcasts\PodcastRouteVerifier;
 use App\Services\Podcasts\PodcastsService;
-use App\Services\Router\RouterService;
 use Symfony\Bundle\SecurityBundle\Security;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\Routing\RouterInterface;
 
 class PodcastOwnerListener
 {
-    public function __construct(private Security $security, private RouterInterface $routerInterface, private PodcastsService $podcastsService, private PodcastRouteVerifier $routeVerifier, private RouterService $routerService) {}
+    public function __construct(private Security $security, private RouterInterface $routerInterface, private PodcastsService $podcastsService, private PodcastRouteVerifier $routeVerifier, private FlashBagInterface $flashBagInterface) {}
 
     public function onKernelController(ControllerEvent $controllerEvent)
     {
@@ -26,7 +27,7 @@ class PodcastOwnerListener
 
         if (!$podcastIdentifier) {
 
-            $response = $this->routerService->generateURL('app_account_podcasts');
+            $response = new RedirectResponse('app_account_podcasts');
 
             //Cette fonction anonyme est utilisée afin d'empêcher l'exécution du controleur initial
             $controllerEvent->setController(fn() => $response);
@@ -38,7 +39,8 @@ class PodcastOwnerListener
         $isUserOwningPodcast = $this->podcastsService->isUserOwningPodcast($podcastIdentifier, $currentUser->getPodcasts());
 
         if (!$isUserOwningPodcast) {
-            $response = $this->routerService->generateURL('app_account_podcasts_details', ['identifier' => $podcastIdentifier]);
+            $this->flashBagInterface->add('error', 'Impossible de modifier le podcast demandé, vous ne possédez pas les droits.');
+            $response = new RedirectResponse('app_account_podcasts');
             $controllerEvent->setController(fn() => $response);
         }
     }

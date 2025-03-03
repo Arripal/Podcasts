@@ -3,9 +3,9 @@
 namespace App\Controller\Account\Podcasts;
 
 use App\Form\UpdatePodcastFormType;
+use App\Repository\PodcastRepository;
 use App\Services\Files\AudioFileService;
 use App\Services\Podcasts\PodcastsService;
-use App\Services\Router\RouterService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,14 +14,13 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class UpdatePodcastController extends AbstractController
 {
+    public function __construct(private PodcastsService $podcastsService, private EntityManagerInterface $entityManagerInterface, private AudioFileService $fileService, private PodcastRepository $podcastRepository) {}
 
-    public function __construct(private PodcastsService $podcastsService, private EntityManagerInterface $entityManagerInterface, private AudioFileService $fileService, private RouterService $routerService) {}
-
-    #[Route('/app/account/podcasts/update/{identifier}', name: 'app_account_podcasts_update')]
-    public function index($identifier, Request $request): Response
+    #[Route('/app/account/podcasts/update/{identifier}', name: 'app_account_podcasts_update', methods: ['GET', 'POST'])]
+    public function editPodcast($identifier, Request $request): Response
     {
 
-        $podcastToUpdate = $this->podcastsService->getOneBy($identifier);
+        $podcastToUpdate = $this->podcastRepository->findOneBy(['id' => $identifier]);
 
         $form = $this->createForm(UpdatePodcastFormType::class, $podcastToUpdate);
 
@@ -46,11 +45,11 @@ final class UpdatePodcastController extends AbstractController
 
             $this->entityManagerInterface->flush();
             $this->addFlash('success', 'Votre podcast a bien été mis à jour.');
-            return $this->routerService->generateURL('app_home');
+            return $this->redirectToRoute('app_account_podcasts');
         }
 
         return $this->render('account/podcasts/update_podcast/index.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form,
             'podcast' => $podcastToUpdate
         ]);
     }

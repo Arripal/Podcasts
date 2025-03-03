@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello Account/Podcasts/PodcastController!{% endblock %}
+{% block title %}Mes podcasts{% endblock %}
 
 {% block body %}
 <style>
@@ -9,11 +9,21 @@
 </style>
 
 <div class="example-wrapper">
-
-    This friendly message is coming from:
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% if user_podcasts %}
     <ul>
-        <li>Your controller at <code>C:/Users/Alban/Desktop/podcastsManager/src/Controller/Account/Podcasts/PodcastController.php</code></li>
-        <li>Your template at <code>C:/Users/Alban/Desktop/podcastsManager/templates/account/podcasts/podcast/index.html.twig</code></li>
+        {% for podcast in user_podcasts %}
+        <li>
+            {{podcast.name}} <button><a href="{{path('app_account_podcasts_delete',{'identifier': podcast.id})}}">Supprimer</a></button><button><a href="{{path('app_account_podcasts_update',{'identifier': podcast.id})}}">Modifier</a></button>
+        </li>  
+        {% endfor %}
     </ul>
+    {% endif %}
 </div>
 {% endblock %}

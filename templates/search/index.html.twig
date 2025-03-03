@@ -9,7 +9,6 @@
 </style>
 
 <div class="example-wrapper">
-
     <h1>Résultats pour "{{ searchValue }}"</h1>  
     <h3>Utilisateurs</h3>
     {% if results.users|length > 0 %}
@@ -28,7 +27,17 @@
     {% if results.podcasts|length > 0 %}
         <ul>
         {% for podcast in results.podcasts %}
-            <li>{{ podcast.name }}</li>
+            <li>
+                <figure>
+                    <figcaption>{{podcast.name}} - {% for author in podcast.author %}
+                        {{author.username}}
+                    {% endfor %}</figcaption>
+                    <audio class="audio" controls>
+                        <source src="{{ asset('uploads/Audio/' ~ podcast.file) }}" type="audio/mpeg">
+                        Votre navigateur ne supporte pas l’élément audio.
+                    </audio>
+                </figure>
+                </li>
         {% endfor %}
         </ul>
     {% else %}

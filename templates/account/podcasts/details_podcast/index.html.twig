@@ -9,24 +9,31 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello✅</h1>
-
- {% for type, messages in app.flashes %}
-    {% for message in messages %}
-        <div class="alert alert-{{ type }}">
-            {{ message }}
-        </div>
+    {% for type, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ type }}">
+                {{ message }}
+            </div>
+        {% endfor %}
     {% endfor %}
-{% endfor %}
-  <div>
-    {% if podcast %}
-        <pre>
-            {{ dump(podcast) }}
-        </pre>
-    {% endif %}
-  </div>  
+    <h1>{{podcast.name}}</h1>
+    <h2 class="podcast_author">
+        {% for author in podcast.author %}
+            {{author.username}}
+        {% endfor %}
+    </h2>
+    <span class="podcast_date"> Crée le {{podcast.createdAt|date('d F Y')}}</span>
+    <div>   
+   <p class="podcast_description">
+    {{podcast.description}}
+   </p>
+   <audio class="audio" controls>
+        <source src="{{ asset('uploads/Audio/' ~ podcast.file) }}" type="audio/mpeg">
+                        Votre navigateur ne supporte pas l’élément audio.
+    </audio>
+    </div>  
 </div>
-</div>
+
 {% endblock %}
 
 

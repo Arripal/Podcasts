@@ -17,7 +17,7 @@ final class DetailsPodcastController extends AbstractController
         $podcast = $this->podcastRepository->findOneBy(['id' => $identifier]);
 
         if ($podcast === null) {
-            $this->addFlash('error', 'Oups. Impossible d\'afficher les informations concernant le podcast. Réessayer ultérieurement.');
+            $this->addFlash('error', 'Impossible d\'afficher les informations concernant le podcast. Réessayer ultérieurement.');
             return $this->redirectToRoute('app_account_podcasts');
         }
 

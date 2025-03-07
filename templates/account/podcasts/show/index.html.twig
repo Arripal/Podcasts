@@ -17,11 +17,25 @@
         {% endfor %}
     {% endfor %}
     {% if user_podcasts %}
-    <ul>
+    <a class="podcast_link" href="{{path('app_account_podcasts_create')}}">Créer un nouveau podcast</a>
+    <ul class="podcast_list">
         {% for podcast in user_podcasts %}
         <li>
-            {{podcast.name}} <button><a href="{{path('app_account_podcasts_delete',{'identifier': podcast.id})}}">Supprimer</a></button><button><a href="{{path('app_account_podcasts_update',{'identifier': podcast.id})}}">Modifier</a></button>
-        </li>  
+            <span class ="podcast_name">{{podcast.name}} - {% for author in podcast.author %}
+                {{author.username}}
+                {% endfor %} 
+            </span>
+             <button class="btn btn-info">
+                <a href="{{path('app_account_podcasts_details',{'identifier': podcast.id})}}">Plus d'informations </a>
+            </button>
+            <button class="btn btn-primary">
+                <a href="{{path('app_account_podcasts_update',{'identifier': podcast.id})}}">Modifier</a>
+            </button>
+            <button class="btn btn-danger">
+                <a href="{{path('app_account_podcasts_delete',{'identifier': podcast.id})}}">Supprimer</a>
+            </button>
+        </li> 
+        <hr> 
         {% endfor %}
     </ul>
     {% endif %}

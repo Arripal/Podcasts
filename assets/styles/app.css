@@ -128,10 +128,13 @@ a {
 
 /** Login page **/
 
-.login {
+.login-form button {
+	margin-top: 15px;
+}
+
+.login-form {
 	height: 100dvh;
-	color: black;
-	margin: 0 auto;
+	margin: 0;
 }
 
 /** Audio **/
@@ -139,4 +142,83 @@ a {
 .audio {
 	height: 50px;
 	width: 500px;
+}
+
+ul {
+	padding: 0;
+}
+
+.account h2 {
+	margin: 40px 0;
+}
+
+.account a {
+	font-size: 18px;
+}
+
+.podcast_name {
+	font-size: 20px;
+	margin-right: 15px;
+}
+
+.podcast_author {
+	font-size: 24px;
+	color: rgb(255, 193, 7);
+}
+
+.podcast_list {
+	margin-top: 30px;
+}
+
+.podcast_link {
+	font-size: 20px;
+	font-weight: 600;
+	text-decoration: underline;
+	color: rgb(182, 174, 174);
+	padding-bottom: 2px;
+}
+
+.podcast_description {
+	margin: 15px 0;
+	font-size: 18px;
+	color: #d3d1d1;
+}
+
+.podcast_date {
+	font-size: 16px;
+	color: #a9a4a4;
+	font-style: italic;
+}
+
+.home h1 {
+	margin-bottom: 15px;
+}
+
+.home h2 {
+	font-size: 30px;
+	margin-bottom: 15px;
+}
+
+.home p {
+	font-size: 18px;
+	color: #d3d1d1;
+}
+
+.home a {
+	color: white;
+}
+
+.subs li {
+	display: flex;
+	align-items: center;
+	margin: 20px 0;
+}
+
+.subs span {
+	font-size: 26px;
+	padding-right: 15px;
+}
+
+.update {
+	margin: 10px 0;
 }

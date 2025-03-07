@@ -32,10 +32,11 @@
                     <figcaption>{{podcast.name}} - {% for author in podcast.author %}
                         {{author.username}}
                     {% endfor %}</figcaption>
-                    <audio class="audio" controls>
-                        <source src="{{ asset('uploads/Audio/' ~ podcast.file) }}" type="audio/mpeg">
-                        Votre navigateur ne supporte pas l’élément audio.
-                    </audio>
+                <button class="btn btn-success">
+                    <a href="{{path('app_account_podcasts_details', {'identifier' : podcast.id})}}">
+                        Ecouter
+                    </a>
+                </button>
                 </figure>
                 </li>
         {% endfor %}

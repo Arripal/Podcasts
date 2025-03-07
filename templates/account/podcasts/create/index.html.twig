@@ -9,7 +9,7 @@
 </style>
 
 <div class="example-wrapper">
-      <h1>Création du podcast ✅</h1>
+      <h1>Création du podcast</h1>
 
    {{ form_start(form) }}
     {{ form_row(form.name) }}
@@ -21,7 +21,7 @@
     </div>
     {{ form_row(form.categories) }} 
     {{form_row(form.description)}}
-    <button type='submit'>Enregistrer le podcast</button>
+    <button class="btn btn-success" type='submit'>Enregistrer le podcast</button>
    {{ form_end(form) }}
 </div>
 {% endblock %}

@@ -5,7 +5,6 @@
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
 <div class="example-wrapper">
@@ -16,28 +15,36 @@
             </div>
         {% endfor %}
     {% endfor %}
-    {% if user_podcasts %}
+    <h1 class="podcast-title">Vos podcasts</h1>
+    {% if user_podcasts is not empty %}
     <a class="podcast_link" href="{{path('app_account_podcasts_create')}}">Créer un nouveau podcast</a>
     <ul class="podcast_list">
         {% for podcast in user_podcasts %}
-        <li>
-            <span class ="podcast_name">{{podcast.name}} - {% for author in podcast.author %}
-                {{author.username}}
+        <li class="podcast-li">
+            <span class ="podcast_name">{{podcast.name}} <span class="link_word">par</span> {% for author in podcast.author %}
+              <span class="username">{{author.username}}</span>  
                 {% endfor %} 
             </span>
-             <button class="btn btn-info">
-                <a href="{{path('app_account_podcasts_details',{'identifier': podcast.id})}}">Plus d'informations </a>
-            </button>
-            <button class="btn btn-primary">
-                <a href="{{path('app_account_podcasts_update',{'identifier': podcast.id})}}">Modifier</a>
-            </button>
-            <button class="btn btn-danger">
-                <a href="{{path('app_account_podcasts_delete',{'identifier': podcast.id})}}">Supprimer</a>
-            </button>
+            <div>
+                <button class="btn btn-primary">
+                    <a href="{{path('app_account_podcasts_details',{'identifier': podcast.id})}}">Informations</a>
+                </button>
+                <button class="btn btn-primary">
+                    <a href="{{path('app_account_podcasts_update',{'identifier': podcast.id})}}">Modifier</a>
+                </button>
+                <button class="btn btn-danger">
+                    <a href="{{path('app_account_podcasts_delete',{'identifier': podcast.id})}}">Supprimer</a>
+                </button>
+            </div>
+             
         </li> 
-        <hr> 
         {% endfor %}
     </ul>
+    {% else %}
+   <p class="podcast-p">Silence radio… Il n’y a encore aucun podcast ici 👀</p>
+    <a class="podcast_link username" href="{{ path('app_account_podcasts_create') }}">
+    Allez, offrez-nous vos plus belles ondes sonores 🎧
+    </a>
     {% endif %}
 </div>
 {% endblock %}

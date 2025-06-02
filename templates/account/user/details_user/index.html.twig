@@ -10,7 +10,7 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Mon profil</h1>
+    <h1 class="username">Mon profil</h1>
     {% for type, messages in app.flashes %}
         {% for message in messages %}
             <div class="alert alert-success">
@@ -44,22 +44,22 @@
      <div>
         <h2>Mes abonnés - {{current_user.countSubscribers()}} abonné(s)</h2>
         {% if current_user.subscribers|length > 0 %}
-            <ul>
+            <ul class="user-ul">
                 {% for sub in current_user.subscribers %}
-                    <li>{{ sub.username }}</li>
+                    <li class="user-li">- {{ sub.username }}</li>
                 {% endfor %}
             </ul>
         {% else %}
             <p>Personne ne vous suit encore.</p>
         {% endif %}
     </div>
-    <div>
-        <button class="btn btn-primary" type="button">
+    <div class="section_btns">
+        <button class="btn btn-success" type="button">
             <a href="{{path('app_account_user_update_username')}}">
                 Changer de pseudonyme
             </a>
         </button> 
-        <button class="btn btn-primary" type="button">
+        <button class="btn btn-success" type="button">
             <a href="{{path('app_account_user_update_password')}}">
                 Changer de mot de passe
             </a>

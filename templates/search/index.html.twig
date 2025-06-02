@@ -6,15 +6,16 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    figcaption {padding-bottom:10px;}
 </style>
 
 <div class="example-wrapper">
     <h1>Résultats pour "{{ searchValue }}"</h1>  
-    <h3>Utilisateurs</h3>
+    <h2>Utilisateurs</h2>
     {% if results.users|length > 0 %}
         <ul>
         {% for user in results.users %}
-            <li> <a href="{{ path('app_account_other_user_details', {'username': user.username|url_encode}) }}">
+            <li>- <a href="{{ path('app_account_other_user_details', {'username': user.username|url_encode}) }}">
         {{ user.username }}
     </a></li>
         {% endfor %}
@@ -23,14 +24,14 @@
         <p>Aucun utilisateur trouvé</p>
     {% endif %}
     
-    <h3>Podcasts</h3>
+    <h2>Podcasts</h2>
     {% if results.podcasts|length > 0 %}
         <ul>
         {% for podcast in results.podcasts %}
             <li>
                 <figure>
-                    <figcaption>{{podcast.name}} - {% for author in podcast.author %}
-                        {{author.username}}
+                    <figcaption>{{podcast.name}} <span class="link_word">par</span> {% for author in podcast.author %}
+                       <span class="username">{{author.username}}</span> 
                     {% endfor %}</figcaption>
                 <button class="btn btn-success">
                     <a href="{{path('app_account_podcasts_details', {'identifier' : podcast.id})}}">

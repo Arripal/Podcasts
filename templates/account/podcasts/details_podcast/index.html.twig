@@ -27,10 +27,12 @@
    <p class="podcast_description">
     {{podcast.description}}
    </p>
-   <audio class="audio" controls>
-        <source src="{{ asset('uploads/Audio/' ~ podcast.file) }}" type="audio/mpeg">
+   <div>
+        <audio class="custom-audio-player" controls>
+            <source src="{{ asset('uploads/Audio/' ~ podcast.file) }}" type="audio/mpeg">
                         Votre navigateur ne supporte pas l’élément audio.
-    </audio>
+        </audio>
+    </div>
     </div>  
 </div>
 

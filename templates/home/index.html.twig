@@ -8,11 +8,11 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 <div class="example-wrapper home">
-    <h1>Bienvenue, {{ user.username }}</h1>
+    <h1>Bienvenue, <span class="username">{{ user.username }}</span></h1>
     <section>
         <div>
             <h2>
-                🎧 Retrouvez vos podcasts préférés et bien plus encore 
+            Retrouvez vos podcasts préférés et bien plus encore 
             </h2>
             <p>
                 Plongez dans un univers captivant avec un large choix de podcasts en tout genre.  
@@ -22,16 +22,18 @@
                 Installez-vous confortablement, appuyez sur play et savourez l’instant ! 🎙✨  
             </p>
         </div>
-        <button class="btn btn-primary">
-            <a href="{{path('app_account_podcasts_create')}}">
+        <section class="section_btns">
+            <button class="btn btn-primary">
+                <a href="{{path('app_account_podcasts_create')}}">
                 Créez un nouveau podcast     
-            </a>
-        </button>
-        <button class="btn btn-success">
-            <a href="{{path('app_account_podcasts_create')}}">
+                </a>
+            </button>
+            <button class="btn btn-success">
+                <a href="{{path('app_account_podcasts')}}">
                 Accédez à vos podcasts    
-            </a>
-        </button>
+                </a>
+            </button>
+        </section>
     </section>
 </div>
 {% endblock %}

@@ -194,7 +194,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeSubscription(self $user): self
+    public function removeSubscription(User $user): self
     {
         $this->subscriptions->removeElement($user);
         return $this;

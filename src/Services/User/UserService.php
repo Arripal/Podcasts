@@ -62,6 +62,8 @@ class UserService
 
         $currentUser->removeSubscription($targetUser);
         $targetUser->removeSubscriber($currentUser);
+
+        $this->entityManagerInterface->flush();
     }
 
     public function searchCorrespondingUsers($searchValue)

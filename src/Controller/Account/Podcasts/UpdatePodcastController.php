@@ -4,7 +4,7 @@ namespace App\Controller\Account\Podcasts;
 
 use App\Form\UpdatePodcastFormType;
 use App\Repository\PodcastRepository;
-use App\Services\Files\AudioFileService;
+use App\Services\Podcasts\PodcastsService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class UpdatePodcastController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $entityManagerInterface, private AudioFileService $fileService, private PodcastRepository $podcastRepository) {}
+    public function __construct(private EntityManagerInterface $entityManagerInterface, private PodcastRepository $podcastRepository, private PodcastsService $podcastsService) {}
 
     #[Route('/app/account/podcasts/update/{identifier}', name: 'app_account_podcasts_update', methods: ['GET', 'POST'])]
     public function updatePodcast($identifier, Request $request): Response
@@ -26,28 +26,8 @@ final class UpdatePodcastController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $form->get('file')->getData();
-            $description = $form->get('description')->getData();
 
-            if ($file) {
-                $podcastToUpdate->setFile($file);
-                $file = $this->fileService->uploadFile($file);
-                $podcastToUpdate->setFile($file['filename']);
-                $podcastToUpdate->setDuration($file['duration']);
-            }
-            if ($description) {
-                $podcastToUpdate->setDescription($description);
-            }
-
-            $podcastToUpdate->setName($form->get('name')->getData());
-            $podcastToUpdate->addAuthor($this->getUser());
-            $categories = $form->get('categories')->getData();
-
-            foreach ($categories as $categorie) {
-                $podcastToUpdate->addCategory($categorie);
-            }
-
-            $this->entityManagerInterface->flush();
+            $this->podcastsService->updatePodcast($form, $podcastToUpdate);
             $this->addFlash('success', 'Votre podcast a bien été mis à jour.');
             return $this->redirectToRoute('app_account_podcasts');
         }

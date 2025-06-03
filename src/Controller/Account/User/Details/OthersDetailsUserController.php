@@ -16,11 +16,14 @@ final class OthersDetailsUserController extends AbstractController
     public function index($username): Response
     {
         $decodedUsername = urldecode($username);
+
         $user = $this->userRepository->findOneBy(['username' => $decodedUsername]);
+
         if (!$user) {
             $referer = $this->requestStack->getCurrentRequest()->headers->get('referer');
             return $this->redirectToRoute($referer);
         }
+
         return $this->render('account/user/details_other/index.html.twig', [
             'user' => $user,
         ]);

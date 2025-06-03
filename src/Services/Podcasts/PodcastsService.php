@@ -59,6 +59,7 @@ class PodcastsService
             ->addAuthor($this->security->getUser());
 
         $description = $form->get('description')->getData();
+
         if ($description) {
             $podcast->setDescription($description);
         }
@@ -77,5 +78,35 @@ class PodcastsService
         $podcast->setDuration($file['duration']);
 
         return $podcast;
+    }
+
+    public function updatePodcast($form, Podcast $podcastToUpdate): void
+    {
+        $file = $form->get('file')->getData();
+        $description = $form->get('description')->getData();
+
+        if ($file) {
+
+            $podcastToUpdate->setFile($file);
+            $file = $this->audioFileService->uploadFile($file);
+
+            $podcastToUpdate->setFile($file['filename']);
+            $podcastToUpdate->setDuration($file['duration']);
+        }
+
+        if ($description) {
+            $podcastToUpdate->setDescription($description);
+        }
+
+        $podcastToUpdate->setName($form->get('name')->getData());
+        $podcastToUpdate->addAuthor($this->security->getUser());
+
+        $categories = $form->get('categories')->getData();
+
+        foreach ($categories as $categorie) {
+            $podcastToUpdate->addCategory($categorie);
+        }
+
+        $this->entityManagerInterface->flush();
     }
 }

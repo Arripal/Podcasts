@@ -19,7 +19,7 @@ final class DeletePodcastController extends AbstractController
 
         try {
             $currentUser = $this->getUser();
-            $this->podcastsService->removePodcast(['id' => $identifier, 'author' => $currentUser]);
+            $this->podcastsService->removePodcast($identifier);
             $this->addFlash('success', 'Le podcast a bien été supprimé.');
 
             return  $this->redirectToRoute('app_account_podcasts');

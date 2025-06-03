@@ -5,6 +5,7 @@ namespace App\Controller\Account\Podcasts;
 use App\Entity\Podcast;
 use App\Form\CreatePodcastFormType;
 use App\Services\Files\AudioFileService;
+use App\Services\Podcasts\PodcastsService;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,7 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class CreatePodcastController extends AbstractController
 {
 
-    public function __construct(private AudioFileService $fileService) {}
+    public function __construct(private AudioFileService $fileService, private PodcastsService $podcasts_service) {}
 
     #[Route('/app/account/podcasts/create', name: 'app_account_podcasts_create')]
     public function index(
@@ -23,35 +24,18 @@ final class CreatePodcastController extends AbstractController
         EntityManagerInterface $entityManagerInterface,
     ): Response {
 
-        $podcast = new Podcast();
-        $form = $this->createForm(CreatePodcastFormType::class, $podcast);
+        $empty_podcast = new Podcast();
+        $form = $this->createForm(CreatePodcastFormType::class, $empty_podcast);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $file = $form->get('file')->getData();
-            $podcast->setName($form->get('name')->getData());
-            $podcast->setFile($file);
-            $podcast->addAuthor($this->getUser());
-
-            $description = $form->get('description')->getData();
-            if ($description) {
-                $podcast->setDescription($description);
-            }
-
-            $categories = $form->get('categories')->getData();
-            foreach ($categories as $categorie) {
-                $podcast->addCategory($categorie);
-            }
-            $podcast->setCreatedAt(new DateTimeImmutable('now'));
-
-            $file = $this->fileService->uploadFile($file);
-
-            $podcast->setFile($file['filename']);
-            $podcast->setDuration($file['duration']);
+            $podcast = $this->podcasts_service->createPodcast($form, $empty_podcast);
 
             $entityManagerInterface->persist($podcast);
             $entityManagerInterface->flush();
+
+            $this->addFlash('success', "Le podcast {$podcast->getName()} a été créé.");
 
             return $this->redirectToRoute('app_home');
         }

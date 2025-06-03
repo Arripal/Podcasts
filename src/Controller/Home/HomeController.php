@@ -9,6 +9,13 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class HomeController extends AbstractController
 {
+
+    #[Route('/', name: 'base_url')]
+    public function entry(): Response
+    {
+        return $this->redirectToRoute('app_home');
+    }
+
     #[Route('/app', name: 'app_home')]
     public function loadLandingPage(): Response
     {
